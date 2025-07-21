@@ -115,8 +115,8 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-         {/* on demande les informations de la dernière prestation */}
+        <h3>Notre dernière prestation</h3>
+        {/* on demande les informations de la dernière prestation sinon on affiche un message */}
         { last && last.cover && last.title && last.date ? (
           <EventCard
           imageSrc={last?.cover}

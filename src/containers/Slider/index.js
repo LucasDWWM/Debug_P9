@@ -22,9 +22,8 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <div key={event.title}>
           <div
-            key={event.title}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -41,6 +40,7 @@ const Slider = () => {
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
+                // key est utilisé chaque élément <input /> généré dans la pagination a une clé unique.
                 <input
                   key={`${event.id}`}
                   type="radio"
@@ -50,7 +50,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
