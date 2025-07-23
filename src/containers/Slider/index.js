@@ -9,7 +9,7 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   // .slice() permet de créer un tableau temporaire qui contient tous les éléments du tableau d'origine sans modifier l'original.
   const byDateDesc = data?.focus.slice().sort((evtA, evtB) =>
-    new Date(evtA.date) - new Date(evtB.date) ? -1 : 1 // le " - " au lieu de " < " permet de trier par ordre décroissant
+    new Date(evtB.date) - new Date(evtA.date) // le " - " au lieu de " < " permet de trier par ordre décroissant
   );
   const nextCard = () => {
     setTimeout(
