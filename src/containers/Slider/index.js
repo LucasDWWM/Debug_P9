@@ -8,12 +8,12 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   // .slice() permet de créer un tableau temporaire qui contient tous les éléments du tableau d'origine sans modifier l'original.
-  const byDateDesc = data?.focus.slice().sort((evtA, evtB) =>
-    new Date(evtB.date) - new Date(evtA.date) // le " - " au lieu de " < " permet de trier par ordre décroissant
+  const byDateAsc = data?.focus.slice().sort((evtA, evtB) =>
+    new Date(evtA.date) - new Date(evtB.date) // le " - " au lieu de " < " permet de trier par ordre décroissant
   );
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+      () => setIndex(index < byDateAsc.length ? index + 1 : 0),
       5000
     );
   };
@@ -22,14 +22,14 @@ const Slider = () => {
   });
   return (
     <div className="SlideCardList">
-      {byDateDesc?.map((event, idx) => (
+      {byDateAsc?.map((event, idx) => (
         <div key={event.title}>
           <div
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
           >
-            <img src={event.cover} alt="forum" />
+            <img src={event.cover} alt={event.title} />
             <div className="SlideCard__descriptionContainer">
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
@@ -40,13 +40,14 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateAsc.map((evt, radioIdx) => (
                 // key est utilisé chaque élément <input /> généré dans la pagination a une clé unique.
                 <input
-                  key={`${event.id}`}
+                  key={evt.title + evt.date}
                   type="radio"
-                  name="radio-button"
-                  checked={idx === radioIdx}
+                  name="slider-pagination"
+                  checked={index === radioIdx}
+                  onChange={() => setIndex(radioIdx)}
                 />
               ))}
             </div>

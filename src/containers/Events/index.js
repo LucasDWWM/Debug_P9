@@ -14,12 +14,12 @@ const EventList = () => {
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const filteredEvents = (data?.events || [])
-  .filter((event) => !type || event.type === type)
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .filter((_, index) =>
-    index >= (currentPage - 1) * PER_PAGE &&
-    index < currentPage * PER_PAGE
-  );
+    .filter((event) => !type || event.type === type)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .filter((_, index) =>
+      index >= (currentPage - 1) * PER_PAGE &&
+      index < currentPage * PER_PAGE
+    );
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
