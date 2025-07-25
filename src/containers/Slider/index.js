@@ -12,15 +12,14 @@ const Slider = () => {
   const byDateAsc = data?.focus.slice().sort((evtA, evtB) =>
     new Date(evtA.date) - new Date(evtB.date) // le " - " au lieu de " < " permet de trier par ordre décroissant
   );
-  const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateAsc.length ? index + 1 : 0),
-      5000
-    );
-  };
   useEffect(() => {
-    nextCard();
-  });
+    const interval = setInterval(() => {
+      setIndex((prevIndex) =>
+        prevIndex < (byDateAsc?.length || 0) - 1 ? prevIndex + 1 : 0
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [byDateAsc?.length || 0]);
   return (
     <div className="SlideCardList">
       {byDateAsc?.map((event, idx) => (
