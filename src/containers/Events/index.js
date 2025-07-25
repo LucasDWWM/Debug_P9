@@ -13,9 +13,13 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  // Charger les événements (ou [] s’ils ne sont pas encore là)
   const filteredEvents = (data?.events || [])
+   // Filtrer par catégorie
     .filter((event) => !type || event.type === type)
+    // Trier par date décroissante
     .sort((a, b) => new Date(b.date) - new Date(a.date))
+     // Garder seulement les événements de la page courante
     .filter((_, index) =>
       index >= (currentPage - 1) * PER_PAGE &&
       index < currentPage * PER_PAGE
