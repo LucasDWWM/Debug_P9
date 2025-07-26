@@ -14,6 +14,11 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {last} = useData()
+  // last est un tableau des 3 derniers événements
+  // on récupère le premier élément pour l'afficher dans le footer
+  // on vérifie que last n'est pas vide et que les propriétés cover, title et date existent
+  // Il s’agit de l’accès sécurisé au premier élément d’un tableau (last) à l’aide de l’opérateur de chaînage optionnel (?.).
+  const latest = last?.[0];
   return <>
     <header>
       <Menu />
@@ -116,19 +121,18 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre dernière prestation</h3>
-        {/* on demande les informations de la dernière prestation sinon on affiche un message */}
-        { last && last.cover && last.title && last.date ? (
+        {/* Vérification que latest existe et contient les propriétés nécessaires */}
+        {/* Si oui, on affiche l'EventCard, sinon un message alternatif */}
+        {latest && latest.cover && latest.title && latest.date ? (
           <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+            imageSrc={latest.cover}
+            title={latest.title}
+            date={new Date(latest.date)}
+            small
+            label="boom"
+          />
         ) : (
-          <div className="no-presta">
-            <p>Aucune prestation récente</p>
-          </div>
+          <div>Aucune prestation récente</div>
         )}
       </div>
       <div className="col contact">
